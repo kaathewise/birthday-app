@@ -1,7 +1,6 @@
 node {
   def project = 'sre-test'
   def appName = 'birthday-app'
-  def feSvcName = "${appName}-frontend"
   def imageTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
   checkout scm
@@ -9,6 +8,6 @@ node {
   stage 'Build image'
   sh("docker build -t ${imageTag} .")
 
-  stage 'Push image to registry'
+  stage 'Publish image'
   sh("gcloud docker -- push ${imageTag}")
 }
