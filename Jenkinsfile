@@ -9,8 +9,5 @@ node {
   sh("docker build -t ${imageTag} .")
 
   stage 'Publish image'
-  environment {
-    GOOGLE_APPLICATION_CREDENTIALS = credentials('sre-test-203806')
-  }
   sh("gcloud docker -- push ${imageTag}")
 }
