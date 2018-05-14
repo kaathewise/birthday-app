@@ -13,7 +13,7 @@ node {
   def uniqueTag = "${packageName}:${commitId}"
   def imageExists = sh(
     returnStdout: true,
-    script: "gcloud container images list-tags ${packageName} | grep ${commitId} | wc -l
+    script: "gcloud container images list-tags ${packageName} | grep ${commitId} | wc -l"
   ).trim()
 
   if (imageExists == '0') {
