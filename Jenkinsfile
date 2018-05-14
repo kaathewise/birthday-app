@@ -9,7 +9,7 @@ node {
 
   def commitId = sh(
     returnStdout: true,
-    script: "git log -n 1 --pretty=format:'%H'").trim()
+    script: "git log -n 1 --pretty=format:'%h'").trim()
   def uniqueTag = "${packageName}:${commitId}"
   def imageExists = sh(
     returnStdout: true,
