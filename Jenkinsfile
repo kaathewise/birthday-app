@@ -3,11 +3,11 @@ import java.text.SimpleDateFormat
 node {
   def project = 'sre-test-203806'
   def appName = 'birthday-app'
-  def package = "gcr.io/${project}/${appName}"
-  def uniqueTag = "${package}:${env.GIT_COMMIT}"
-  def latestTag = "${package}:latest"
-  def liveTag = "${package}:live"
-  def RCTag = "${package}:RC${new SimpleDateFormat("yyyyMMddHHmm").format(new Date())}"
+  def packageName = "gcr.io/${project}/${appName}"
+  def uniqueTag = "${packageName}:${env.GIT_COMMIT}"
+  def latestTag = "${packageName}:latest"
+  def liveTag = "${packageName}:live"
+  def RCTag = "${packageName}:RC${new SimpleDateFormat("yyyyMMddHHmm").format(new Date())}"
 
   checkout scm
 
