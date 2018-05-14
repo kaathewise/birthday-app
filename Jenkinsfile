@@ -7,17 +7,26 @@ node {
 
   checkout scm
 
-  def commitId = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%H'").trim()
+  def commitId = sh(
+    returnStdout: true,
+    script: "git log -n 1 --pretty=format:'%H'").trim()
   def uniqueTag = "${packageName}:${commitId}"
+  def imageExists = sh(
+    returnStdout: true,
+    script: "gcloud container images list-tags ${packageName} | grep ${commitId} | wc -l
+  ).trim()
+
+  if (imageExists == '0') {
+    stage 'Build image'
+    sh("docker build -t ${uniqueTag} .")
+
+    stage 'Publish image'
+    sh("gcloud docker -- push ${uniqueTag}")
+  }
+
   def latestTag = "${packageName}:latest"
   def liveTag = "${packageName}:live"
   def RCTag = "${packageName}:RC${new SimpleDateFormat("yyyyMMddHHmm").format(new Date())}"
-
-  stage 'Build image'
-  sh("docker build -t ${uniqueTag} .")
-
-  stage 'Publish image'
-  sh("gcloud docker -- push ${uniqueTag}")
 
   switch (env.BRANCH_NAME) {
     case 'master':
