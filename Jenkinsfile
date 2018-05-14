@@ -10,8 +10,8 @@ node {
   sh("docker build -t ${uniqueTag} .")
 
   stage 'Publish image'
-  sh('gcloud docker -- push ${uniqueTag}')
-  sh('gcloud container images add-tag ${uniqueTag} ${latestTag}')
+  sh("gcloud docker -- push ${uniqueTag}")
+  sh("gcloud container images add-tag ${uniqueTag} ${latestTag}")
 
   if (env.BRANCH_NAME == 'master') {
     // Roll out to dev environment
