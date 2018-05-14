@@ -7,11 +7,11 @@ node {
   checkout scm
 
   stage 'Build image'
-  sh("docker build -t ${imageTag} .")
+  sh("docker build -t ${uniqueTag} .")
 
   stage 'Publish image'
-  sh('gcloud docker -- push ${imageTag}')
-  sh('gcloud container images add-tag ${imageTag} ${latestTag}')
+  sh('gcloud docker -- push ${uniqueTag}')
+  sh('gcloud container images add-tag ${uniqueTag} ${latestTag}')
 
   if (env.BRANCH_NAME == 'master') {
     // Roll out to dev environment
