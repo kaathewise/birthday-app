@@ -3,7 +3,6 @@ node {
   def appName = 'birthday-app'
   def uniqueTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
   def latestTag = "gcr.io/${project}/${appName}:${env.BRANCH_NAME}.latest"
-  def
 
   checkout scm
 
