@@ -20,6 +20,6 @@ node {
     dir('deployment-config') {
         git url: 'https://github.com/kaathewise/sre-test.git' // clones config
     }
-    sh('kubectl --namespace=dev apply -f deployment-config/k8s/dev/)
+    sh('kubectl --namespace=dev apply -f deployment-config/k8s/dev/')
   }
 }
