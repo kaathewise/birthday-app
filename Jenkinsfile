@@ -26,7 +26,7 @@ node {
 
   def latestTag = "${packageName}:latest"
   def liveTag = "${packageName}:live"
-  def RCTag = "${packageName}:RC${new SimpleDateFormat("yyyyMMddHHmm").format(new Date())}"
+  def RCTag = "${packageName}:RC${new SimpleDateFormat("yyyyMMdd_HHmm").format(new Date())}"
 
   switch (env.BRANCH_NAME) {
     case 'master':
