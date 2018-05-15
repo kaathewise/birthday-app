@@ -24,6 +24,8 @@ async def get_greeting(request):
     return web.json_response({'message': get_message(name, date)})
 
 def get_message(name, birth_date):
+    if not birth_date:
+        return "User %s unknown." % name
     delta = days_before_birthday(birth_date)
     if delta:
         return "Hello, %s! Your birthday is in %s days" % (name, delta)

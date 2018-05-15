@@ -41,7 +41,7 @@ node {
       sh("gcloud container images add-tag ${uniqueTag} ${RCTag}")
 
       stage "Deploy Prod"
-      sh("kubectl --namespace=dev set image deployment/birthday-app-dev backend=${uniqueTag}")
+      sh("kubectl --namespace=dev set image deployment/birthday-app backend=${uniqueTag}")
 
       stage "Update 'live' tag"
       sh("gcloud container images add-tag ${uniqueTag} ${liveTag}")
