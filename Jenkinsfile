@@ -30,12 +30,13 @@ node {
 
   switch (env.BRANCH_NAME) {
     case 'master':
-      stage "Update 'latest' tag"
+      stage "Update latest tag"
       sh("gcloud container images add-tag ${uniqueTag} ${latestTag}")
 
-      stage "Deploy Rolling Dev"
+      stage "Deploy rolling dev"
       sh("kubectl --namespace=dev set image deployment/birthday-app-dev backend=${uniqueTag}")
       break;
+
     case 'release':
       stage "Update RCxx tag"
       sh("gcloud container images add-tag ${uniqueTag} ${RCTag}")
@@ -43,9 +44,8 @@ node {
       stage "Deploy Prod"
       sh("kubectl --namespace=dev set image deployment/birthday-app backend=${uniqueTag}")
 
-      stage "Update 'live' tag"
+      stage "Update live tag"
       sh("gcloud container images add-tag ${uniqueTag} ${liveTag}")
-
       break;
   }
 }
