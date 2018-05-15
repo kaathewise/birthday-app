@@ -40,3 +40,5 @@ class MySqlStorage:
                     return (await cur.fetchone())[0]
                 else:
                     return None
+
+storage = MySqlStorage()

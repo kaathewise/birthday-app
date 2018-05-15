@@ -1,10 +1,9 @@
 import datetime
 from aiohttp import web
 
-from .storage import MySqlStorage
+from .storage import storage
 
 routes = web.RouteTableDef()
-storage = MySqlStorage()
 
 @routes.get('/statusz')
 async def statusz(request):
@@ -25,19 +24,22 @@ async def get_greeting(request):
 
 def get_message(name, birth_date):
     if not birth_date:
-        return "User %s unknown." % name
+        return 'User %s unknown.' % name
     delta = days_before_birthday(birth_date)
     if delta:
-        return "Hello, %s! Your birthday is in %s days" % (name, delta)
+        return 'Hello, %s! Your birthday is in %s days' % (name, delta)
     else:
-        return "Hello, %s! Happy birthday!" % (name,)
+        return 'Hello, %s! Happy birthday!' % (name,)
 
 def days_before_birthday(birth_date):
-    today = datetime.date.today()
+    today = get_today()
     next_date = datetime.date(today.year, birth_date.month, birth_date.day)
     if next_date < today:
         next_date = datetime.date(next_date.year + 1, next_date.month, next_date.day)
     return (next_date - today).days
+
+def get_today():
+    return datetime.date.today()
 
 def run(argv):
     app = web.Application()

@@ -17,6 +17,9 @@ node {
   ).trim()
 
   if (imageExists == '0') {
+    stage 'Test'
+    sh("python3 -m unittest")
+
     stage 'Build image'
     sh("docker build -t ${uniqueTag} .")
 
